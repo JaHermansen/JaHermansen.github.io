@@ -3,7 +3,7 @@ margin: 0;
 padding: 0;
 box-sizing: border-box;
 background-color: #f0f0f0;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-family: Helvetica, sans-serif;
 font-size: 18px;
 background-color: transparent;
 font-weight: 500;
@@ -61,7 +61,7 @@ input[type="file"] {
 
 .custom-icon {
   color: #242424;
-  background-color: white;
+  background-color: transparent;
 }
 
 .custom-icon.is-active {
@@ -70,13 +70,18 @@ input[type="file"] {
 }
 
 .custom-button {
-  background-color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 4px;
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: white;
+}
+
+.custom-button img {
+    width: 30px; /* Adjust the size of the icon */
+    height: auto;
+    margin-right: 6px; /* Add some margin between the icon and text */
 }
 
 .custom-button.is-active {
@@ -261,28 +266,6 @@ input[type="file"] {
   align-self: center;
   margin: 6px 0px;
 }
-
-
-
-#IDS-file {
-    background-color: white;
-    padding: 6px 12px; /* Adjust padding */
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    display: inline-block;
-    cursor: pointer;
-    margin-left: 6px; /* Add margin to match other buttons */
-}
-
-    #IDS-file img {
-        width: 22px; /* Adjust icon size */
-        height: auto;
-    }
-
-    #IDS-file:hover {
-        border: 1px solid #cfe2f3; /* Light blue border color on hover */
-        background-color: #cfe2f3; /* Light blue background color on hover */
-    }
 
 .custom-button:hover {
     background-color: #cfe2f3; /* Light blue hover color */

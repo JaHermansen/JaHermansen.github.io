@@ -103502,15 +103502,15 @@ class IFCLoader extends Loader {
 
 
 
-const measuringHint = document.getElementById("measuring-hint");
-const measuringButton = document.getElementById("measuring-button");
-measuringButton.addEventListener("click", () => {
-    selectedTool = selectedTool == AVAILABLE_TOOLS.measuring ? undefined : AVAILABLE_TOOLS.measuring;
-    toggleMeasuring();
-    togglePicking();
-    toggleAnnotating();
-    toggleHelp();
-});
+//const measuringHint = document.getElementById("measuring-hint");
+//const measuringButton = document.getElementById("measuring-button");
+//measuringButton.addEventListener("click", () => {
+//    selectedTool = selectedTool == AVAILABLE_TOOLS.measuring ? undefined : AVAILABLE_TOOLS.measuring;
+//    toggleMeasuring();
+//    togglePicking();
+//    toggleAnnotating();
+//    toggleHelp();
+//});
 
 const pickingButton = document.getElementById("picking-button");
 pickingButton.addEventListener("click", () => {
@@ -103521,23 +103521,23 @@ pickingButton.addEventListener("click", () => {
     toggleHelp();
 });
 
-const annotatingButton = document.getElementById("annotating-button");
-annotatingButton.addEventListener("click", () => {
-    selectedTool = selectedTool == AVAILABLE_TOOLS.annotating ? undefined : AVAILABLE_TOOLS.annotating;
-    toggleAnnotating();
-    togglePicking();
-    toggleMeasuring();
-    toggleHelp();
-});
+//const annotatingButton = document.getElementById("annotating-button");
+//annotatingButton.addEventListener("click", () => {
+//    selectedTool = selectedTool == AVAILABLE_TOOLS.annotating ? undefined : AVAILABLE_TOOLS.annotating;
+//    toggleAnnotating();
+//    togglePicking();
+//    toggleMeasuring();
+//    toggleHelp();
+//});
 
-const helpButton = document.getElementById("help-button");
-helpButton.addEventListener("click", () => {
-    selectedTool = selectedTool == AVAILABLE_TOOLS.helping ? undefined : AVAILABLE_TOOLS.helping;
-    toggleHelp();
-    toggleAnnotating();
-    togglePicking();
-    toggleMeasuring();
-});
+//const helpButton = document.getElementById("help-button");
+//helpButton.addEventListener("click", () => {
+//    selectedTool = selectedTool == AVAILABLE_TOOLS.helping ? undefined : AVAILABLE_TOOLS.helping;
+//    toggleHelp();
+//    toggleAnnotating();
+//    togglePicking();
+//    toggleMeasuring();
+//});
 const helpPanel = document.getElementById("help-panel");
 
 const modelInfo = document.getElementById("model-info");
@@ -103936,32 +103936,38 @@ input.addEventListener(
 );
 
 
-// Sets up IDS checker
-// Function to handle IDS file upload
-const handleIDSFileUpload = (changed) => {
-    const file = changed.target.files[0];
-    const idsURL = URL.createObjectURL(file);
-
-    // Perform IDS checking against the model
-    performIDSCheck(idsURL);
+// Sets up IDS file input
+// Function to handle IDS file selection
+const handleIDSFileSelection = () => {
+    const inputIDS = document.createElement('input');
+    inputIDS.type = 'file';
+    inputIDS.accept = ".ids"; // Set accepted file types if necessary
+    inputIDS.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const idsURL = URL.createObjectURL(file);
+        // Perform IDS checking against the model
+        performIDSCheck(idsURL);
+    });
+    inputIDS.click();
 };
 
 // Add event listener to the IDS-file button
-const IDSfile = document.getElementById("IDS-file");
-IDSfile.addEventListener("change", handleIDSFileUpload, false);
+const IDSfileButton = document.getElementById("IDS-file");
+IDSfileButton.addEventListener("click", handleIDSFileSelection);
 
 // Function to perform IDS check
 const performIDSCheck = (idsURL) => {
     // Load IDS file
     fetch(idsURL)
-        .then(response => response.json())
+        .then(response => response.text())
         .then(idsData => {
             // IDS checking logic
-            if (model && idsData) {
-                // Perform IDS checking here
-                console.log("IDS check completed.");
+            if (idsData) {
+                // Display IDS file name
+                const idsInfo = `IDS File: ${file.name}`;
+                document.getElementById("model-info").innerText += '\n' + idsInfo;
             } else {
-                console.error("Model or IDS data not found.");
+                console.error("IDS data not found.");
             }
         })
         .catch(error => console.error("Error loading IDS file:", error));
